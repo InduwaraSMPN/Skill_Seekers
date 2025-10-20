@@ -1028,22 +1028,22 @@ def main():
 
         try:
             import subprocess
-            enhance_cmd = ['python3', 'enhance_skill_local.py', f'output/{config["name"]}/']
+            enhance_cmd = ['python3', 'cli/enhance_skill_local.py', f'output/{config["name"]}/']
             subprocess.run(enhance_cmd, check=True)
         except subprocess.CalledProcessError:
             print("\n⚠ Enhancement failed, but skill was still built")
         except FileNotFoundError:
             print("\n⚠ enhance_skill_local.py not found. Run manually:")
-            print(f"  python3 enhance_skill_local.py output/{config['name']}/")
+            print(f"  python3 cli/enhance_skill_local.py output/{config['name']}/")
 
     print(f"\n📦 Package your skill:")
-    print(f"  python3 package_skill.py output/{config['name']}/")
+    print(f"  python3 cli/package_skill.py output/{config['name']}/")
 
     if not args.enhance and not args.enhance_local:
         print(f"\n💡 Optional: Enhance SKILL.md with Claude:")
-        print(f"  API-based:  python3 enhance_skill.py output/{config['name']}/")
+        print(f"  API-based:  python3 cli/enhance_skill.py output/{config['name']}/")
         print(f"              or re-run with: --enhance")
-        print(f"  Local (no API key): python3 enhance_skill_local.py output/{config['name']}/")
+        print(f"  Local (no API key): python3 cli/enhance_skill_local.py output/{config['name']}/")
         print(f"                      or re-run with: --enhance-local")
 
 
