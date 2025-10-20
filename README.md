@@ -94,6 +94,43 @@ graph LR
 
 ## 🚀 Quick Start
 
+### Prerequisites (Required First)
+
+**1. Get the Code**
+```bash
+# Option A: Clone the repository
+git clone https://github.com/yusufkaraaslan/Skill_Seekers.git
+cd Skill_Seekers
+
+# Option B: Download ZIP
+# Go to https://github.com/yusufkaraaslan/Skill_Seekers
+# Click "Code" → "Download ZIP"
+# Extract the ZIP file
+# Open terminal in the extracted folder
+```
+
+**2. Verify Python Version**
+```bash
+# Requires Python 3.10 or higher
+python3 --version
+# Should show: Python 3.10.x or higher
+```
+
+**3. Install Dependencies**
+```bash
+# Required for scraping
+pip3 install requests beautifulsoup4
+
+# Optional: For API-based enhancement (costs money)
+pip3 install anthropic
+export ANTHROPIC_API_KEY=sk-ant-...
+
+# Optional: For Claude Code integration
+# Go to https://claude.ai/download to download Claude Code
+```
+
+---
+
 ### Method 1: MCP Server for Claude Code (Easiest)
 
 Use Skill Seeker directly from Claude Code with natural language!
@@ -126,25 +163,62 @@ Package skill at output/react/
 - 📦 [Large Documentation Guide](docs/LARGE_DOCUMENTATION.md) - Handle 10K-40K+ pages
 - 📤 [Upload Guide](docs/UPLOAD_GUIDE.md) - How to upload skills to Claude
 
+---
+
 ### Method 2: CLI (Traditional)
 
-#### Easiest: Use a Preset
+#### Complete Workflow Example
+
+**Step 1: Install dependencies**
+```bash
+# Already done in prerequisites
+pip3 install requests beautifulsoup4
+```
+
+**Step 2: Estimate pages first (optional, recommended)**
+```bash
+# Quick check - takes 1-2 minutes, no big downloads
+python3 cli/estimate_pages.py configs/godot.json
+```
+
+**Step 3: Scrape and enhance**
+```bash
+# Scrape React docs with AI enhancement (recommended)
+python3 cli/doc_scraper.py --config configs/react.json --enhance-local
+# Takes ~25 minutes total (20-40 min scraping + 60 sec enhancement)
+```
+
+**Step 4: Package the skill**
+```bash
+python3 cli/package_skill.py output/react/
+# Creates output/react.zip ready for Claude
+```
+
+**Step 5: Upload to Claude**
+```bash
+# Option A: Manual upload (no API key needed)
+# Go to https://claude.ai/skills → Upload Skill → select output/react.zip
+
+# Option B: Automatic upload (requires ANTHROPIC_API_KEY)
+python3 cli/upload_skill.py output/react.zip
+```
+
+#### Quick Preset Usage
 
 ```bash
-# Install dependencies (macOS)
-pip3 install requests beautifulsoup4
-
-# Optional: Estimate pages first (fast, 1-2 minutes)
-python3 estimate_pages.py configs/godot.json
+# From the Skill_Seekers directory:
 
 # Use Godot preset
-python3 doc_scraper.py --config configs/godot.json
+python3 cli/doc_scraper.py --config configs/godot.json
 
-# Use React preset
-python3 doc_scraper.py --config configs/react.json
+# Use React preset  
+python3 cli/doc_scraper.py --config configs/react.json
 
-# See all presets
+# See all available presets
 ls configs/
+
+# Or use interactive mode
+python3 cli/doc_scraper.py --interactive
 ```
 
 ### Interactive Mode
